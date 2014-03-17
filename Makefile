@@ -12,7 +12,9 @@ SRCS	=
 
 OBJS	= $(SRCS:.c=.o)
 
-NAME	= 
+NAME1	= client
+
+NAME2	= server
 
 CC	= cc
 
@@ -21,19 +23,16 @@ CFLAGS	+= -I includes/
 
 RM	= rm -f
 
-CP	= cp -f
-
 all:	$(NAME)
 
 $(NAME):	$(OBJS)
 	$(CC) -o $(NAME) $(OBJS)
-	$(CP) $(NAME) bin/$(NAME)
 
 clean:
 	$(RM) $(OBJS)
 
 fclean:	clean
-	$(RM) $(NAME) bin/$(NAME)
+	$(RM) $(NAME1) $(NAME2)
 
 re:	fclean all
 
