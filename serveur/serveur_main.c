@@ -11,6 +11,21 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+void    catch_sig(int sig)
+{
+  signal(SIGUSR1, catch_sig);
+  signal(SIGUSR2, catch_sig);
+  if (sig == SIGQUIT)
+    {
+      my_putstr("Exit\n");
+      exit(0);
+    }
+  else if (sig == SIGHUP)
+    my_putstr("prosper youpla boum!!!!\n");
+  else if (sig == SIGUSR1)
+    my_putstr("");
+}
+
 void	start_server()
 {
   int	let;
@@ -22,6 +37,7 @@ void	start_server()
       bit = 0;
       while (bit < 8)
 	{
+	  
 	  if ()
 	    {
 	      lettre[bit];
