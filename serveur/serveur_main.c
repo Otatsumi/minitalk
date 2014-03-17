@@ -13,9 +13,29 @@
 
 void	start_server()
 {
+  int	let;
+  int	lettre[8];
+  int	bit;
+
   while (42)
     {
+      bit = 0;
+      while (bit < 8)
+	{
+	  if ()
+	    {
+	      lettre[bit];
+	      bit++;
+	    }
+	  else if ()
+	    {
+	      lettre[bit];	      
+	      bit++;
+	    }
+	}
       
+      let = get_bin_to_dec(lettre);
+      my_putchar(let);
     }
 }
 
