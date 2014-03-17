@@ -10,6 +10,23 @@
 
 #include <unistd.h>
 
+void    my_putchar(char c)
+{
+  write(1, &c, 1);
+}
+
+void    my_put_nbr(int nb)
+{
+  if (nb < 0)
+    {
+      my_putchar('-');
+      nb = -nb;
+    }
+  if (nb > 9)
+      my_put_nbr(nb / 10);
+  my_putchar((nb % 10) + 48);
+}
+
 void	my_putstr(char *str)
 {
   int	i;
@@ -18,56 +35,4 @@ void	my_putstr(char *str)
   while (str[i] != 0)
     i++;
   write(1, str, i);
-}
-
-int	val_in_bin(int i)
-{
-  int	j;
-  int	val;
-
-  j = 0;
-  val = 128;
-  while (++j != i)
-    val = val / 2;
-  return (val);
-}
-
-int	*get_dec_to_bin(int l)
-{
-  int	octet[8];
-  int	i;
-  int	val;
-
-  i = 0;
-  val = 128;
-  while (i < 9)
-    {
-      if (val <= l)
-	{
-	  l = l - val;
-	  octet[i] = 1;
-	}
-      else
-	octet = 0;
-      val = val / 2;
-      i++;
-    }
-  return (octet);
-}
-
-int	get_bin_to_dec(int *octet)
-{
-  int	val;
-  int	i;
-  int	letter;
-
-  i = 7;
-  val = 0;
-  while (i > -1)
-    {
-      if (octect[i] == 1)
-	val = val + val_in_bin(i + 1);
-      i--;
-    }
-  return (val);
 }
