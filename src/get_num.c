@@ -8,6 +8,8 @@
 ** Last update Mon Mar 17 16:36:33 2014 bauwen_j
 */
 
+#include <stdlib.h>
+
 int	val_in_bin(int i)
 {
   int	j;
@@ -22,12 +24,14 @@ int	val_in_bin(int i)
 
 int	*get_dec_to_bin(int l)
 {
-  int	octet[8];
+  int	*octet;
   int	i;
   int	val;
 
   i = 0;
   val = 128;
+  if ((octet = malloc(8 * sizeof(int))) == NULL)
+    return (NULL);
   while (i < 9)
     {
       if (val <= l)
@@ -36,7 +40,7 @@ int	*get_dec_to_bin(int l)
 	  octet[i] = 1;
 	}
       else
-	octet = 0;
+	octet[i] = 0;
       val = val / 2;
       i++;
     }
@@ -53,7 +57,7 @@ int	get_bin_to_dec(int *octet)
   val = 0;
   while (i > -1)
     {
-      if (octect[i] == 1)
+      if (octet[i] == 1)
 	val = val + val_in_bin(i + 1);
       i--;
     }
