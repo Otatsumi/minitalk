@@ -8,25 +8,32 @@
 ** Last update Mon Mar 17 16:43:57 2014 bauwen_j
 */
 
-void	strat_client(char *spid, char *text)
+#include <sys/types.h>
+#include <signal.h>
+#include <unistd.h>
+#include "my.h"
+
+void	start_client(char *spid, char *text)
 {
-  int	pid;
+  pid_t	pid;
   int	i;
   int	j;
   int	*oct;
 
-  pid = get_nbr(spid);
+  pid = my_getnbr(spid);
   i = 0;
   while (text[i] != 0)
     {
-      oct = get_dec_to_bin(text[i]);
+      if ((oct = get_dec_to_bin(text[i])) == NULL)
+	return ;
       j = 0;
       while (j < 8)
 	{
 	  if (oct[j] == 0)
-	    kill(pid, SIGSR1);
+	    kill(pid, SIGUSR1);
 	  else
 	    kill(pid, SIGUSR2);
+	      usleep(1);
 	  j++;
 	}
       i++;
