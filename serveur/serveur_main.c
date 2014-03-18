@@ -9,49 +9,31 @@
 */
 
 #include <sys/types.h>
+#include <signal.h>
 #include <unistd.h>
+#include "my.h"
 
-void    catch_sig(int sig)
+void		start_server(int sig)
 {
-  signal(SIGUSR1, catch_sig);
-  signal(SIGUSR2, catch_sig);
-  if (sig == SIGQUIT)
+  int		let;
+  static int	lettre[8];
+  static int	bit = 0;
+
+  if (sig == SIGUSR1)
     {
-      my_putstr("Exit\n");
-      exit(0);
+      lettre[bit] = 0;
+      bit++;
     }
-  else if (sig == SIGHUP)
-    my_putstr("prosper youpla boum!!!!\n");
-  else if (sig == SIGUSR1)
-    my_putstr("");
-}
-
-void	start_server()
-{
-  int	let;
-  int	lettre[8];
-  int	bit;
-
-  while (42)
+  if (sig == SIGUSR2)
     {
-      bit = 0;
-      while (bit < 8)
-	{
-	  
-	  if ()
-	    {
-	      lettre[bit];
-	      bit++;
-	    }
-	  else if ()
-	    {
-	      lettre[bit];	      
-	      bit++;
-	    }
-	}
-      
+      lettre[bit] = 1;
+      bit++;
+    }
+  if (bit == 8)
+    {
       let = get_bin_to_dec(lettre);
       my_putchar(let);
+      bit = 0;
     }
 }
 
@@ -61,6 +43,9 @@ int	main()
 
   pid = getpid();
   my_put_nbr(pid);
-  start_server();
+  signal(SIGUSR1, start_server);
+  signal(SIGUSR2, start_server);
+  while (1)
+    ;
   return (0);
 }

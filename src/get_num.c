@@ -51,7 +51,6 @@ int	get_bin_to_dec(int *octet)
 {
   int	val;
   int	i;
-  int	letter;
 
   i = 7;
   val = 0;
@@ -62,4 +61,19 @@ int	get_bin_to_dec(int *octet)
       i--;
     }
   return (val);
+}
+
+int	my_getnbr(char *str)
+{
+  int	i;
+  int	nbr;
+
+  i = 0;
+  nbr = 0;
+  while (str[i] != 0)
+    {
+      nbr = (nbr * 10) + (str[i] - 48);
+      i++;
+    }
+  return (nbr);
 }

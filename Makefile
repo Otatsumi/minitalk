@@ -8,9 +8,18 @@
 ## Last update Mon Mar 17 16:12:24 2014 bauwen_j
 ##
 
-SRCS	= 
+SRCS1	= clien/client_main.c
 
-OBJS	= $(SRCS:.c=.o)
+SRCS2	= serveur/serveur_main.c
+
+SRCI	= src/get_num.c \
+	  src/str.c
+
+OBJSI	= $(SRCI:.c=.o)
+
+OBJS1	= $(SRCS1:.c=.o)
+
+OBJS2	= $(SRCS2:.c=.o)
 
 NAME1	= client
 
@@ -18,18 +27,21 @@ NAME2	= server
 
 CC	= cc
 
-CFLAGS	+= -W -Wall -Wextra -pedantic -ansi
+CFLAGS	+= -W -Wall -Wextra
 CFLAGS	+= -I includes/
 
 RM	= rm -f
 
-all:	$(NAME)
+all:	$(NAME1) $(NAME2)
 
-$(NAME):	$(OBJS)
-	$(CC) -o $(NAME) $(OBJS)
+$(NAME1):	$(OBJS1) $(OBJSI)
+	$(CC) -o $(NAME1) $(OBJS1) $(OBJSI)
+
+$(NAME2):	$(OBJS2) $(OBJSI)
+	$(CC) -o $(NAME2) $(OBJS2) $(OBJSI)
 
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(OBJS1) $(OBJS2) $(OBJSI)
 
 fclean:	clean
 	$(RM) $(NAME1) $(NAME2)
