@@ -8,9 +8,9 @@
 ## Last update Mon Mar 17 16:12:24 2014 bauwen_j
 ##
 
-SRCS1	= clien/client_main.c
+SRCS1	= fct_client/client_main.c
 
-SRCS2	= serveur/serveur_main.c
+SRCS2	= fct_server/serveur_main.c
 
 SRCI	= src/get_num.c \
 	  src/str.c
