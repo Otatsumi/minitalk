@@ -13,38 +13,48 @@
 #include <unistd.h>
 #include "my.h"
 
-void	start_client(char *spid, char *text)
+int	start_client(int pid, char *text)
 {
-  pid_t	pid;
+  int	bit;
   int	i;
   int	j;
   int	*oct;
 
-  pid = my_getnbr(spid);
   i = 0;
   while (text[i] != 0)
     {
       if ((oct = get_dec_to_bin(text[i])) == NULL)
-	return ;
+	return (-1);
       j = 0;
       while (j < 8)
 	{
 	  if (oct[j] == 0)
-	    kill(pid, SIGUSR1);
+	    bit = SIGUSR1;
 	  else
-	    kill(pid, SIGUSR2);
-	      usleep(1);
+	    bit = SIGUSR2;
+	  if (kill(pid, bit) == -1)
+	    return (-1);
+	  usleep(1);
 	  j++;
 	}
       i++;
     }
+  return (0);
 }
 
 int	main(int ac, char **argv)
 {
+  int	pid;
+
   if (ac != 3)
     my_putstr("error : this program need two arguments\n");
   else
-    start_client(argv[1], argv[2]);
+    {
+      pid = my_getnbr(argv[1]);
+      if (start_client(pid, argv[2]) == -1)
+	my_putstr("error : text don't send\n");
+      if (start_client(pid, "\n") == -1)
+	my_putstr("error : text don't send\n");
+    }
   return (0);
 }
